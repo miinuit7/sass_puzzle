@@ -1,0 +1,73 @@
+@charset 'UTF-8';
+
+@use 'mixin' as mix;
+@use 'variable' as var;
+
+.header {
+  background-color: var.$navy;
+  padding: 20px;
+  height: 100px;
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  box-sizing: border-box;
+
+  &__buttons {
+    background-color: var.$white;
+    display: flex;
+    padding: 10px;
+
+    @each $name in var.$classNames {
+      $index: index(var.$classNames, $name);
+
+      &--#{$name} {
+        @include mix.button-style(nth(var.$buttonColor, $index));
+        margin-left: 10px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+.main {
+  display: flex;
+
+  &__sidebar {
+    height: 250px;
+    width: 150px;
+    background-color: var.$green;
+  }
+
+  &__content {
+    height: 250px;
+    width: 250px;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: var.$red;
+
+    @each $name in var.$classNames {
+      $index: index(var.$classNames, $name);
+
+      &--#{$name} {
+        @include mix.content-box(nth(var.$buttonColor, $index));
+        margin-top: 10px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: var.$brown;
+  height: 100px;
+  width: 400px;
+}
